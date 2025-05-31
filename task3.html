@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task 3: Advanced Styling and JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      color: teal;
+    }
+
+    section {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .box {
+      background-color: teal;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .box {
+        background-color: orange;
+      }
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      background-color: teal;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: darkcyan;
+    }
+
+    img {
+      border-radius: 50%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section 1: Responsive Design -->
+  <section>
+    <h2>1. Responsive Design with Media Queries</h2>
+    <div class="box">Resize the window to see the background color change!</div>
+  </section>
+
+  <!-- Section 2: Interactive Quiz -->
+  <section>
+    <h2>2. Simple Quiz</h2>
+    <p>What is the capital of France?</p>
+    <button onclick="checkAnswer('Paris')">Paris</button>
+    <button onclick="checkAnswer('London')">London</button>
+    <button onclick="checkAnswer('Berlin')">Berlin</button>
+    <p id="quiz-result"></p>
+  </section>
+
+  <!-- Section 3: Fetch API -->
+  <section>
+    <h2>3. Fetch Random User</h2>
+    <button onclick="fetchUser()">Get Random User</button>
+    <div id="user"></div>
+  </section>
+
+  <script>
+    // Quiz Function
+    function checkAnswer(answer) {
+      const result = document.getElementById('quiz-result');
+      if (answer === 'Paris') {
+        result.textContent = 'Correct!';
+        result.style.color = 'green';
+      } else {
+        result.textContent = 'Wrong answer!';
+        result.style.color = 'red';
+      }
+    }
+
+    // Fetch API Function
+    function fetchUser() {
+      fetch('https://randomuser.me/api/')
+        .then(response => response.json())
+        .then(data => {
+          const user = data.results[0];
+          document.getElementById('user').innerHTML = `
+            <p>Name: ${user.name.first} ${user.name.last}</p>
+            <img src="${user.picture.medium}" alt="User Image" />
+          `;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
